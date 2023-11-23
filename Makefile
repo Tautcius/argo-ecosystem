@@ -23,7 +23,7 @@ cert-manager:
 	@echo "Installing cert-manager..."
 	helm install cert-manager cert-manager \
 	--repo https://charts.jetstack.io \
-	--version 1.11.5 \
+	--version 1.13.2 \
 	--namespace cert-manager \
 	--create-namespace \
 	--set installCRDs=true \
@@ -34,16 +34,12 @@ cert-manager:
 
 argo-cd:	
 	@echo "Installing argo-cd..."
-	helm install argocd argo-cd \
+	helm upgrade -i argocd argo-cd \
 	--repo https://argoproj.github.io/argo-helm \
 	--version 5.51.4 \
 	--namespace argocd \
 	--create-namespace \
-	--set 'configs.secret.argocdServerAdminPassword=$2a$10$V.Z2TW0MXeErKz9bZx70OOqqjbeJbpQ1njW9hOkwblnMSLC1ENKMi' \
-	--set dex.enabled=false \
-	--set notifications.enabled=false \
-	--set server.service.type=NodePort \
-	--set server.service.nodePortHttp=31443 \
+	--values argo/cd/values.yaml \
 	--wait
 	@echo "Argo-cd installed"
 
@@ -51,7 +47,7 @@ argo-cd:
 
 argo-events:
 	@echo "Installing argo-events..."
-	helm install argo-events argo-events \
+	helm upgrade -i argo-events argo-events \
 	--repo https://argoproj.github.io/argo-helm \
 	--version 3.1.0 \
 	--namespace argo-events \

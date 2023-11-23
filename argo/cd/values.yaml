@@ -1,0 +1,17 @@
+# User: admin
+# Pass: testKargoPass
+
+configs:
+  secret:
+    argocdServerAdminPassword: $2a$10$V.Z2TW0MXeErKz9bZx70OOqqjbeJbpQ1njW9hOkwblnMSLC1ENKMi
+
+dex:
+  enabled: false 
+
+notifications:
+  enabled: false
+
+server:
+  service:
+    type: NodePort
+    nodePortHttp: 31443

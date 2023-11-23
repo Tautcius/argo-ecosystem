@@ -1,0 +1,26 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: argo
+nodes:
+- extraPortMappings:
+  - containerPort: 31443 # Argo CD dashboard
+    hostPort: 8443
+  - containerPort: 31444 # Kargo dashboard
+    hostPort: 8444
+  - containerPort: 31445 # Argo Events dashboard
+    hostPort: 8445
+  - containerPort: 31446 # Argo Workflows dashboard
+    hostPort: 8446
+  - containerPort: 31447 # Argo Rollouts dashboard
+    hostPort: 8447
+
+  # - containerPort: 30081 # dev application instance
+  #   hostPort: 8081
+  # - containerPort: 30082 # test application instance
+  #   hostPort: 8082
+  # - containerPort: 30083 # UAT application instance
+  #   hostPort: 8083
+  # - containerPort: 30084 # staging application instance
+  #   hostPort: 8084
+  # - containerPort: 30085 # prod application instance
+  #   hostPort: 8085

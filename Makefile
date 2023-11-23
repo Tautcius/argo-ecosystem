@@ -49,14 +49,9 @@ argo-events:
 	@echo "Installing argo-events..."
 	helm upgrade -i argo-events argo-events \
 	--repo https://argoproj.github.io/argo-helm \
-	--version 3.1.0 \
+	--version 2.4.1 \
 	--namespace argo-events \
 	--create-namespace \
-	--set installCRDs=true \
-	--set controller.service.type=NodePort \
-	--set controller.service.nodePortHttp=31444 \
-	--set sensor.service.type=NodePort \
-	--set sensor.service.nodePortHttp=31445 \
 	--wait
 	@echo "Argo-events installed"
 
@@ -79,12 +74,10 @@ argo-rollouts:
 	@echo "Installing argo-rollouts..."
 	helm install argo-rollouts argo-rollouts \
 	--repo https://argoproj.github.io/argo-helm \
-	--version 1.1.0 \
+	--version 2.32.4 \
 	--namespace argo-rollouts \
 	--create-namespace \
-	--set installCRDs=true \
-	--set controller.service.type=NodePort \
-	--set controller.service.nodePortHttp=31447 \
+	--values argo/rollouts/values.yaml \
 	--wait
 	@echo "Argo-rollouts installed"
 

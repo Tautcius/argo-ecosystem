@@ -1,0 +1,7 @@
+installCRDs: true
+
+dashboard:
+  enabled: true
+  service:
+    type: NodePort
+    nodePort: 31447

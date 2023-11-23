@@ -1,0 +1,7 @@
+crds:
+  install: true
+
+server:
+  serviceType: NodePort
+  serviceNodePort: 31446
+  extraArgs: [--auth-mode=server]

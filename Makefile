@@ -64,16 +64,12 @@ argo-events:
 
 argo-workflows:
 	@echo "Installing argo-workflows..."
-	helm install argo-workflows argo-workflows \
+	helm upgrade -i argo-workflows argo-workflows \
 	--repo https://argoproj.github.io/argo-helm \
-	--version 3.1.0 \
-	--namespace argo-workflows \
+	--version 0.39.3 \
+	--namespace argo \
 	--create-namespace \
-	--set installCRDs=true \
-	--set controller.service.type=NodePort \
-	--set controller.service.nodePortHttp=31446 \
-	--set ui.service.type=NodePort \
-	--set ui.service.nodePortHttp=31446 \
+	--values argo/workflows/values.yaml \
 	--wait
 	@echo "Argo-workflows installed"
 
@@ -94,4 +90,4 @@ argo-rollouts:
 
 PHONY: argo-all
 
-argo-all: argo-cd argo-events argo-workflows argo-rollouts
+argo-all: argo-cd argo-workflows argo-rollouts argo-events

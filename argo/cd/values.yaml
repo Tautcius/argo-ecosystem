@@ -1,9 +1,9 @@
 # User: admin
-# Pass: testKargoPass
+# Pass: admin
 
 configs:
   secret:
-    argocdServerAdminPassword: $2a$10$V.Z2TW0MXeErKz9bZx70OOqqjbeJbpQ1njW9hOkwblnMSLC1ENKMi
+    argocdServerAdminPassword: $2a$10$hu.RLTScyCnlwUbu5kGCr.SgG/yDnEKPzXIlMKO9wxoHSnwH.C//u
 
 dex:
   enabled: false 

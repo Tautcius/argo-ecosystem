@@ -21,7 +21,7 @@ kind-delete:
 
 cert-manager:
 	@echo "Installing cert-manager..."
-	helm install cert-manager cert-manager \
+	helm upgrade -i cert-manager cert-manager \
 	--repo https://charts.jetstack.io \
 	--version 1.13.2 \
 	--namespace cert-manager \
@@ -50,7 +50,7 @@ argo-events:
 	helm upgrade -i argo-events argo-events \
 	--repo https://argoproj.github.io/argo-helm \
 	--version 2.4.1 \
-	--namespace argo-events \
+	--namespace argo \
 	--create-namespace \
 	--wait
 	@echo "Argo-events installed"
@@ -75,7 +75,7 @@ argo-rollouts:
 	helm install argo-rollouts argo-rollouts \
 	--repo https://argoproj.github.io/argo-helm \
 	--version 2.32.4 \
-	--namespace argo-rollouts \
+	--namespace argo \
 	--create-namespace \
 	--values argo/rollouts/values.yaml \
 	--wait
@@ -83,4 +83,4 @@ argo-rollouts:
 
 PHONY: argo-all
 
-argo-all: argo-cd argo-workflows argo-rollouts argo-events
+argo-all: cert-manager argo-cd argo-workflows argo-rollouts argo-events

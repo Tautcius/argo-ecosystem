@@ -8,40 +8,27 @@ This setup includes:
 
 ## Intstalation
 
+Create cluster with:
+
 ```zsh
-kind create cluster --wait 120s --config=infra/cluster.yaml
+make kind
 ```
 
-## Install cert-manager
+Install all apps with:
 
 ```zsh
-helm install cert-manager cert-manager \
-  --repo https://charts.jetstack.io \
-  --version 1.11.5 \
-  --namespace cert-manager \
-  --create-namespace \
-  --set installCRDs=true \
-  --wait
-
-```
-
-## Install ArgoCD
-
-```zsh
-helm install argocd argo-cd \
-  --repo https://argoproj.github.io/argo-helm \
-  --version 5.46.6 \
-  --namespace argocd \
-  --create-namespace \
-  --set 'configs.secret.argocdServerAdminPassword=$2a$10$V.Z2TW0MXeErKz9bZx70OOqqjbeJbpQ1njW9hOkwblnMSLC1ENKMi' \
-  --set dex.enabled=false \
-  --set notifications.enabled=false \
-  --set server.service.type=NodePort \
-  --set server.service.nodePortHttp=31443 \
-  --wait
+make argo-all
 ```
 
 ### Login info
 
 User: admin
-Pass: testKargoPass
+Pass: admin
+
+## Clean up
+
+To destroy everything use:
+
+```zsh
+make kind-delete
+```

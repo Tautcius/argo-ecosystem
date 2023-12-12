@@ -20,8 +20,3 @@ patches:
     - op: replace
       path: /spec/template/spec/containers/0/env/0/value
       value: "dev"
-
-images:
-- name: ghcr.io/tautcius/kargo-demo-app
-  newName: ghcr.io/tautcius/kargo-demo-app
-  newTag: 0.1.1

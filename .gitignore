@@ -1,2 +1,4 @@
-**/secret.yaml
+ß**/secret.yaml
 workflows/config.json
+infra/repo-secret.yaml
+workflows/secret.yaml

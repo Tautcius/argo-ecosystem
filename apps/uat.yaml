@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-demo-dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-demo-test
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-demo-qa
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-demo-uat
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kargo-demo-prod
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-demo-dev
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-demo:dev
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Tautcius/kargo-demo
+    targetRevision: stage/dev
+    path: stages/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo-demo-dev
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-demo-test
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-demo:test
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Tautcius/kargo-demo
+    targetRevision: stage/test
+    path: stages/test
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo-demo-test
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-demo-qa
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-demo:qa
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Tautcius/kargo-demo
+    targetRevision: stage/qa
+    path: stages/qa
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo-demo-qa
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-demo-uat
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-demo:uat
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Tautcius/kargo-demo
+    targetRevision: stage/uat
+    path: stages/uat
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo-demo-uat
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo-demo-prod
+  namespace: argocd
+  annotations:
+    kargo.akuity.io/authorized-stage: kargo-demo:prod
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Tautcius/kargo-demo
+    targetRevision: stage/prod
+    path: stages/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo-demo-prod

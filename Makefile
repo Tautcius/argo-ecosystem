@@ -72,7 +72,7 @@ argo-workflows:
 
 argo-rollouts:
 	@echo "Installing argo-rollouts..."
-	helm install argo-rollouts argo-rollouts \
+	helm upgrade -i argo-rollouts argo-rollouts \
 	--repo https://argoproj.github.io/argo-helm \
 	--version 2.32.4 \
 	--namespace argo \
@@ -81,6 +81,19 @@ argo-rollouts:
 	--wait
 	@echo "Argo-rollouts installed"
 
+.PHONY: argo-updater
+
+argo-updater:
+	@echo "Installing Argo-image-updater..."
+	helm upgrade -i argocd-image-updater argocd-image-updater \
+	--repo https://argoproj.github.io/argo-helm \
+	--version 0.9.1 \
+	--namespace argocd \
+	--create-namespace \
+	--values argo/updater/values.yaml \
+	--wait
+	@echo "Argo-image-updater installed"
+
 PHONY: argo-all
 
-argo-all: cert-manager argo-cd argo-workflows argo-rollouts argo-events
+argo-all: cert-manager argo-cd argo-workflows argo-rollouts argo-events argo-updater

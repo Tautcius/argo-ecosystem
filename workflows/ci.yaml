@@ -30,4 +30,4 @@ spec:
           - name: container_image
             value: ghcr.io/tautcius/kargo-demo-app
           - name: container_tag
-            value: "1.0.0"
+            value: "0.1.2"

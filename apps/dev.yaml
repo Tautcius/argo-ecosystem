@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: stages/dev
-    repoURL: https://github.com/Tautcius/argo-ecosystem.git
+    repoURL: ssh://git@github.com/Tautcius/argo-ecosystem.git
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

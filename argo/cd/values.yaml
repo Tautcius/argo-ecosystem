@@ -8,10 +8,54 @@ configs:
 dex:
   enabled: false 
 
-notifications:
-  enabled: false
-
 server:
   service:
     type: NodePort
     nodePortHttp: 31443
+
+notifications:
+  enabled: true
+  notifiers:
+    service.webhook.azure-devops: |
+      url: http://webhook-eventsource.argo.svc.cluster.local:12000
+      headers:
+        - name: Content-Type
+          value: application/json
+  subscriptions: []
+    # # subscription for on-sync-status-unknown trigger notifications
+    # - recipients:
+    #   - slack:test2
+    #   - email:test@gmail.com
+    #   triggers:
+    #   - on-sync-status-unknown
+    # # subscription restricted to applications with matching labels only
+    # - recipients:
+    #   - slack:test3
+    #   selector: test=true
+    #   triggers:
+    #   - on-sync-status-unknown
+
+  # -- The notification template is used to generate the notification content
+  ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
+  templates: 
+    template.app-sync-succeeded: |
+      template.azure-devops: |+
+        webhook:
+          azure-devops:
+            method: POST
+            path: /tests
+            body: |
+              {
+                  "message": "Run tests that started by ArogCD"
+              }
+
+  # -- The trigger defines the condition when the notification should be sent
+  ## For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/
+  triggers:
+    trigger.on-app-deployed: |
+      - description: run once app is deployed
+        oncePer: app.status.sync.revision
+        send:
+          - azure-devops
+        when: app.status.operationState.phase in ['Succeeded'] and
+          app.status.health.status == 'Healthy'

@@ -24,6 +24,10 @@ spec:
                   workflows.argoproj.io/archive-strategy: "false"
               spec:
                 entrypoint: build
+                ttlStrategy:
+                  secondsAfterCompletion: 60 # Time to live after workflow is completed, replaces ttlSecondsAfterFinished
+                  secondsAfterSuccess: 600     # Time to live after workflow is successful
+                  # secondsAfterFailure: 600     # Time to live after workflow fails
                 serviceAccountName: argo-workflows-server
                 volumes:
                 - name: kaniko-secret

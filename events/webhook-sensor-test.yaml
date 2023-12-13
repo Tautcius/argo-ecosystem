@@ -23,8 +23,8 @@ spec:
               spec:
                 entrypoint: whalesay
                 ttlStrategy:
-                  secondsAfterCompletion: 60 # Time to live after workflow is completed, replaces ttlSecondsAfterFinished
-                  secondsAfterSuccess: 15     # Time to live after workflow is successful
+                  secondsAfterCompletion: 180 # Time to live after workflow is completed, replaces ttlSecondsAfterFinished
+                  secondsAfterSuccess: 180     # Time to live after workflow is successful
                   # secondsAfterFailure: 600     # Time to live after workflow fails
                 arguments:
                   parameters:

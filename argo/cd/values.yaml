@@ -44,11 +44,9 @@ notifications:
           azure-devops:
             method: POST
             path: /tests
-            body: |
-              {
-                  "message": "Run tests that started by ArogCD"
-              }
+            body: '{"message":"this is mock for running test from ArgoCD"}'
 
+  #  curl -d '{"message":"this is mock for running test"}' -H "Content-Type: application/json" -X POST http://webhook-eventsource.argo.svc.cluster.local:12000/tests
   # -- The trigger defines the condition when the notification should be sent
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/
   triggers:

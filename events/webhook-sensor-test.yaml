@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: webhook
+  name: webhook-tests
 spec:
   template:
     serviceAccountName: operate-workflow-sa
   dependencies:
     - name: test-dep
       eventSourceName: webhook
-      eventName: example
+      eventName: tests
   triggers:
     - template:
-        name: webhook-workflow-trigger
+        name: webhook-workflow-trigger-tests
         k8s:
           operation: create
           source:
@@ -19,7 +19,7 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: Workflow
               metadata:
-                generateName: webhook-
+                generateName: webhook-tests
               spec:
                 entrypoint: whalesay
                 ttlStrategy:

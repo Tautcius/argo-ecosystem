@@ -19,6 +19,13 @@ spec:
       endpoint: /commit
       # HTTP request method to allow. In this case, only POST requests are accepted
       method: POST
+    tests:
+      # port to run HTTP server on
+      port: "12000"
+      # endpoint to listen to
+      endpoint: /tests
+      # HTTP request method to allow. In this case, only POST requests are accepted
+      method: POST
 ---
 apiVersion: v1
 kind: Service

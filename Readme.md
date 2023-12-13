@@ -35,8 +35,20 @@ make kind-delete
 
 ## webhook event
 
-to trigger build pipeline need to post with curl
+To trigger demo webhook run:
+
+```zsh
+curl -d '{"message":"this is my first webhook"}' -H "Content-Type: application/json" -X POST http://localhost:8445/example
+```
+
+To trigger build pipeline need to post with curl:
 
 ```zsh
 curl -d '{"tag":"0.1.5"}' -H "Content-Type: application/json" -X POST http://localhost:8445/commit
+```
+
+To trigger tests workload:
+
+```zsh
+curl -d '{"message":"this is mock for running test"}' -H "Content-Type: application/json" -X POST http://localhost:8445/tests
 ```

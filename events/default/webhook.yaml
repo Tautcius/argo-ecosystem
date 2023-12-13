@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: webhook
+spec:
+  webhook:
+    # event-source can run multiple HTTP servers. Simply define a unique port to start a new HTTP server
+    example:
+      # port to run HTTP server on
+      port: "12000"
+      # endpoint to listen to
+      endpoint: /example
+      # HTTP request method to allow. In this case, only POST requests are accepted
+      method: POST
+    commit:
+      # port to run HTTP server on
+      port: "12000"
+      # endpoint to listen to
+      endpoint: /commit
+      # HTTP request method to allow. In this case, only POST requests are accepted
+      method: POST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-eventsource
+spec:
+  ports:
+  - port: 12000
+    protocol: TCP
+    targetPort: 12000
+    nodePort: 31445
+  selector:
+    eventsource-name: webhook
+  type: NodePort

@@ -32,3 +32,11 @@ To destroy everything use:
 ```zsh
 make kind-delete
 ```
+
+## webhook event
+
+to trigger build pipeline need to post with curl
+
+```zsh
+curl -d '{"tag":"0.1.5"}' -H "Content-Type: application/json" -X POST http://localhost:8445/commit
+```

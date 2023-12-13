@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: webhook-commit
+spec:
+  template:
+    serviceAccountName: operate-workflow-sa
+  dependencies:
+    - name: commit-version
+      eventSourceName: webhook
+      eventName: commit
+  triggers:
+    - template:
+        name: webhook-workflow-trigger-build
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: build-container-image-
+                labels:
+                  workflows.argoproj.io/archive-strategy: "false"
+              spec:
+                entrypoint: build
+                serviceAccountName: argo-workflows-server
+                volumes:
+                - name: kaniko-secret
+                  secret:
+                    secretName: regcred
+                    items:
+                      - key: .dockerconfigjson
+                        path: config.json
+                templates:
+                - name: build
+                  dag:
+                    tasks:
+                    - name: build
+                      templateRef:
+                        name: container-image
+                        template: build-kaniko-git
+                        clusterScope: true
+                      arguments:
+                        parameters:
+                        - name: app_repo
+                          value: git://github.com/tautcius/kargo-demo-app
+                        - name: container_image
+                          value: ghcr.io/tautcius/kargo-demo-app
+                        - name: container_tag
+          parameters:
+            - src:
+                dependencyName: commit-version
+                dataKey: body.tag
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.2.value
